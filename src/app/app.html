@@ -1,0 +1,17 @@
+<nav class="navbar">
+  <div class="logo">
+    <h2>TechLab E-Commerce</h2>
+  </div>
+  
+  <ul class="nav-links">
+    <li><a routerLink="/productos" routerLinkActive="activo">Catálogo</a></li>
+    <li><a routerLink="/carrito" routerLinkActive="activo">Mi Carrito</a></li>
+    <li><a routerLink="/pedidos" routerLinkActive="activo">Historial de Compras</a></li>
+    
+    <li><a routerLink="/admin" style="color: red;">Panel Admin</a></li>
+  </ul>
+</nav>
+
+<main class="contenedor-principal">
+  <router-outlet></router-outlet>
+</main>

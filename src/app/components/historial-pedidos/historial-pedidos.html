@@ -1,0 +1,22 @@
+<div class="historial-container">
+  <h2>Mi Historial de Compras</h2>
+
+  <div *ngFor="let pedido of historial" class="pedido-card">
+    
+    <div class="pedido-info">
+      <h3>Pedido #{{ pedido.id }}</h3>
+      <p>Fecha: {{ pedido.fecha }}</p>
+    </div>
+
+    <div class="pedido-total">
+      <h3 style="margin: 0;">Total: ${{ pedido.total }}</h3>
+    </div>
+
+    <div>
+      <span class="badge-estado" [style.background-color]="getColorEstado(pedido.estado)">
+        {{ pedido.estado }}
+      </span>
+    </div>
+    
+  </div>
+</div>
