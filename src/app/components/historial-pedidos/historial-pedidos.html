@@ -1,11 +1,16 @@
 <div class="historial-container">
   <h2>Mi Historial de Compras</h2>
 
-  <div *ngFor="let pedido of historial" class="pedido-card">
+  <div *ngIf="!historial() || historial()?.length === 0" class="historial-vacio">
+    <h3>No hay pedidos en el historial 🛒</h3>
+    <p>¡Explora nuestro catálogo y realiza tu primera compra!</p>
+  </div>
+
+  <div *ngFor="let pedido of historial()" class="pedido-card">
     
     <div class="pedido-info">
       <h3>Pedido #{{ pedido.id }}</h3>
-      <p>Fecha: {{ pedido.fecha }}</p>
+      <p>Fecha: {{ pedido.fecha }}</p> 
     </div>
 
     <div class="pedido-total">
