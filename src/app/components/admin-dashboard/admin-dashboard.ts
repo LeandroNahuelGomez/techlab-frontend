@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   styleUrl: './admin-dashboard.css'
 })
 export class AdminDashboardComponent implements OnInit {
-
+  
   productos = signal<Producto[]>([]);
   private productoService = inject(ProductoService);
 
@@ -20,31 +20,36 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   cargarProductos() {
-    this.productoService.listarProductos().subscribe(datos => {
+    // El admin consume el endpoint que trae activos e inactivos
+    this.productoService.listarTodosLosProductos().subscribe(datos => {
       this.productos.set(datos);
     });
   }
 
-  eliminarProducto(id: number) {
+  cambiarEstadoProducto(producto: Producto) {
+    const accion = producto.activo ? 'deshabilitar' : 'habilitar';
+    
     Swal.fire({
-      title: '¿Modificar estado?',
-      text: "El producto será deshabilitado (borrado lógico).",
-      icon: 'warning',
+      title: `¿Quieres ${accion} este producto?`,
+      text: `El producto cambiará su estado en el catálogo público.`,
+      icon: 'question',
       showCancelButton: true,
-      confirmButtonColor: '#e74c3c',
+      confirmButtonColor: producto.activo ? '#e74c3c' : '#27ae60',
       cancelButtonColor: '#95a5a6',
-      confirmButtonText: 'Sí, deshabilitar',
+      confirmButtonText: `Sí, ${accion}`,
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log('Cambiando estado al producto con ID:', id);
-        // Aquí llamaremos al servicio en el próximo paso
-
-        Swal.fire(
-          '¡Modificado!',
-          'El estado del producto ha sido actualizado.',
-          'success'
-        );
+        this.productoService.alternarEstado(producto.id).subscribe({
+          next: () => {
+            this.cargarProductos(); // Recarga la lista actualizada desde MySQL
+            Swal.fire('¡Estado Actualizado!', `El producto fue ${accion}do con éxito.`, 'success');
+          },
+          error: (err) => {
+            console.error(err);
+            Swal.fire('Error', 'No se pudo cambiar el estado.', 'error');
+          }
+        });
       }
     });
   }

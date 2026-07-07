@@ -26,45 +26,47 @@
     <p>Utiliza el botón superior para dar de alta el primer ítem en MySQL.</p>
   </div>
 
-  <div class="tabla-contenedor" *ngIf="productos().length > 0">
-    <table class="tabla-admin">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Miniatura</th>
-          <th>Nombre del Producto</th>
-          <th>Descripción</th>
-          <th>Precio</th>
-          <th>Stock Físico</th>
-          <th style="text-align: center;">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let prod of productos()">
-          <td class="txt-id">#{{ prod.id }}</td>
-          <td>
-            <img [src]="prod.imagenUrl" [alt]="prod.nombre" class="img-miniatura">
-          </td>
-          <td class="txt-bold">{{ prod.nombre }}</td>
-          <td class="txt-desc">{{ prod.descripcion }}</td>
-          <td class="txt-precio">${{ prod.precio }}</td>
-          <td>
-            <span [class]="prod.stock > 0 ? 'stock-badge' : 'stock-badge sin-stock'">
-              {{ prod.stock }} u.
-            </span>
-          </td>
-          <td>
-            <div class="acciones-flex">
-              <button class="btn-accion editar" onclick="alert('Editar ID ' + JSON.stringify(this.id) + ' (Release 2)')">
-                Editar
-              </button>
-              <button class="btn-accion eliminar" (click)="eliminarProducto(prod.id)">
-                Eliminar
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="tabla-contenedor" *ngIf="productos().length > 0">
+  <table class="tabla-admin">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Miniatura</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Estado Catálogo</th> <th style="text-align: center;">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let prod of productos()">
+        <td class="txt-id">#{{ prod.id }}</td>
+        <td><img [src]="prod.imagenUrl" [alt]="prod.nombre" class="img-miniatura"></td>
+        <td class="txt-bold">{{ prod.nombre }}</td>
+        <td class="txt-precio">${{ prod.precio }}</td>
+        <td>{{ prod.stock }} u.</td>
+        
+        <td>
+          <span [class]="prod.activo ? 'status-badge activo' : 'status-badge inactivo'">
+            {{ prod.activo ? 'ACTIVO' : 'OCULTO' }}
+          </span>
+        </td>
+        
+        <td>
+          <div class="acciones-flex">
+            <button class="btn-accion editar" onclick="alert('Editar (Release 2)')">
+              Editar
+            </button>
+            
+            <button 
+              [class]="prod.activo ? 'btn-accion deshabilitar' : 'btn-accion habilitar'" 
+              (click)="cambiarEstadoProducto(prod)">
+              {{ prod.activo ? 'Deshabilitar' : 'Habilitar' }}
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 </div>
