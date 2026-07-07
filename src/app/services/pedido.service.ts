@@ -29,4 +29,9 @@ export class PedidoService {
   obtenerHistorialUsuario(usuarioId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUsuariosUrl}/${usuarioId}/pedidos`);
   }
+
+  cambiarEstadoPedido(id: number, nuevoEstado: string): Observable<any> {
+    // Usamos template literals para inyectar los valores en la URL
+    return this.http.put(`${this.apiUrl}/${id}/estado?estado=${nuevoEstado}`, {});
+  }
 }
