@@ -1,8 +1,13 @@
+
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-// Interfaz que refleja tu entidad de Java
+export interface Categoria {
+  id: number;
+  nombre: string;
+}
+
 export interface Producto {
   id: number;
   nombre: string;
@@ -10,6 +15,8 @@ export interface Producto {
   precio: number;
   imagenUrl: string;
   stock: number;
+  activo: boolean; // 1. Agregado a la interfaz
+  categoria: Categoria
 }
 
 @Injectable({
@@ -17,10 +24,28 @@ export interface Producto {
 })
 export class ProductoService {
   private http = inject(HttpClient);
-  // Asegurate de que el puerto 8080 coincida con tu Spring Boot
   private apiUrl = 'http://localhost:8080/api/productos';
 
+  // Trae solo activos (Catálogo cliente)
   listarProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(this.apiUrl);
+  }
+
+  // NUEVO: Trae todos (Panel Admin)
+  listarTodosLosProductos(): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${this.apiUrl}/todos`);
+  }
+
+  // NUEVO: Envía la petición para cambiar el estado booleano
+  alternarEstado(id: number): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}/toggle`, {});
+  }
+
+  crearProducto(producto: any): Observable<any> {
+    return this.http.post(this.apiUrl, producto);
+  }
+
+  actualizarProducto(id: number, producto: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, producto, { observe: 'response' });
   }
 }

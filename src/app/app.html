@@ -1,14 +1,21 @@
-<nav class="navbar">
+<nav class="navbar" *ngIf="authService.usuarioActual()">
   <div class="logo">
     <h2>TechLab E-Commerce</h2>
+    <span class="user-badge">
+      {{ authService.usuarioActual().nombre }}
+    </span>
   </div>
   
   <ul class="nav-links">
-    <li><a routerLink="/productos" routerLinkActive="activo">Catálogo</a></li>
-    <li><a routerLink="/carrito" routerLinkActive="activo">Mi Carrito</a></li>
-    <li><a routerLink="/pedidos" routerLinkActive="activo">Historial de Compras</a></li>
+    <ng-container *ngIf="authService.usuarioActual().rol === 'CLIENTE'">
+      <li><a routerLink="/productos" routerLinkActive="activo">Catálogo</a></li>
+      <li><a routerLink="/carrito" routerLinkActive="activo">Mi Carrito</a></li>
+      <li><a routerLink="/pedidos" routerLinkActive="activo">Historial de Compras</a></li>
+    </ng-container>
     
-    <li><a routerLink="/admin" style="color: red;">Panel Admin</a></li>
+    <li>
+      <button class="btn-logout" (click)="cerrarSesion()">Cerrar Sesión</button>
+    </li>
   </ul>
 </nav>
 
