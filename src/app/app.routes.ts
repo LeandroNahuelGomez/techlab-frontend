@@ -23,4 +23,5 @@ export const routes: Routes = [
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Ruta por defecto
   { path: '**', redirectTo: '/login' } // Si escriben cualquier verdura, van a productos
+  
 ];
