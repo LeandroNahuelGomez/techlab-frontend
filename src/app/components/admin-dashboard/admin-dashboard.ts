@@ -1,6 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductoService, Producto } from '../../services/producto.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -10,7 +11,7 @@ import { ProductoService, Producto } from '../../services/producto.service';
   styleUrl: './admin-dashboard.css'
 })
 export class AdminDashboardComponent implements OnInit {
-  
+
   productos = signal<Producto[]>([]);
   private productoService = inject(ProductoService);
 
@@ -25,9 +26,26 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   eliminarProducto(id: number) {
-    if (confirm('¿Estás seguro de eliminar este producto?')) {
-      console.log('Eliminando producto con ID:', id);
-      // Aquí llamaremos al método DELETE de tu backend más adelante
-    }
+    Swal.fire({
+      title: '¿Modificar estado?',
+      text: "El producto será deshabilitado (borrado lógico).",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#e74c3c',
+      cancelButtonColor: '#95a5a6',
+      confirmButtonText: 'Sí, deshabilitar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log('Cambiando estado al producto con ID:', id);
+        // Aquí llamaremos al servicio en el próximo paso
+
+        Swal.fire(
+          '¡Modificado!',
+          'El estado del producto ha sido actualizado.',
+          'success'
+        );
+      }
+    });
   }
 }
