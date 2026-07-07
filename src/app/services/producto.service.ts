@@ -3,6 +3,11 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface Categoria {
+  id: number;
+  nombre: string;
+}
+
 export interface Producto {
   id: number;
   nombre: string;
@@ -11,6 +16,7 @@ export interface Producto {
   imagenUrl: string;
   stock: number;
   activo: boolean; // 1. Agregado a la interfaz
+  categoria: Categoria
 }
 
 @Injectable({
@@ -33,5 +39,13 @@ export class ProductoService {
   // NUEVO: Envía la petición para cambiar el estado booleano
   alternarEstado(id: number): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}/toggle`, {});
+  }
+
+  crearProducto(producto: any): Observable<any> {
+    return this.http.post(this.apiUrl, producto);
+  }
+
+  actualizarProducto(id: number, producto: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, producto, { observe: 'response' });
   }
 }
