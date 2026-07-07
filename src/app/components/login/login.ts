@@ -42,7 +42,6 @@ export class LoginComponent {
     this.authService.login(this.credenciales).subscribe({
       next: (usuario) => {
         // Si el login es exitoso, lo mandamos al catálogo
-        alert(`¡Bienvenido ${usuario.nombre}! Has ingresado como ${usuario.rol}`);
         if(usuario.rol === 'ADMIN'){
           this.router.navigate(['/admin'])
         } else {
