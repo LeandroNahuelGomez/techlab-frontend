@@ -42,19 +42,12 @@ export class LoginComponent {
     this.authService.login(this.credenciales).subscribe({
       next: (usuario) => {
         // Si el login es exitoso, lo mandamos al catálogo
-        Swal.fire({
-          title: '¡Bienvenido!',
-          text: `Hola ${usuario.nombre}, has ingresado como ${usuario.rol}`,
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 2000
-        }).then(() => {
-          if(usuario.rol === 'ADMIN'){
-            this.router.navigate(['/admin']);
-          } else {
-            this.router.navigate(['/productos']);
-          }
-        });
+        alert(`¡Bienvenido ${usuario.nombre}! Has ingresado como ${usuario.rol}`);
+        if(usuario.rol === 'ADMIN'){
+          this.router.navigate(['/admin'])
+        } else {
+          this.router.navigate(['/productos']);
+        }
       },
       error: (err) => {
         this.errorMensaje = 'Correo o contraseña incorrectos.';
