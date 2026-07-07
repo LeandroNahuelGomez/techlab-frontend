@@ -1,0 +1,47 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2 class="marca">TechLab</h2>
+    <p class="subtitulo">Ingresa a tu cuenta para continuar</p>
+
+    <div class="alerta-error" *ngIf="errorMensaje">
+      {{ errorMensaje }}
+    </div>
+
+    <form (ngSubmit)="iniciarSesion()" #loginForm="ngForm">
+      <div class="form-group">
+        <label>Correo Electrónico</label>
+        <input 
+          type="email" 
+          name="email" 
+          [(ngModel)]="credenciales.email" 
+          required 
+          placeholder="ejemplo@correo.com">
+      </div>
+
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input 
+          type="password" 
+          name="password" 
+          [(ngModel)]="credenciales.password" 
+          required 
+          placeholder="********">
+      </div>
+
+      <button type="submit" class="btn-ingresar" [disabled]="!loginForm.valid">
+        Iniciar Sesión
+      </button>
+    </form>
+
+    <hr class="divisor">
+
+    <div class="demo-zone">
+      <p>Accesos de Prueba (Demo)</p>
+      <div class="botones-demo">
+        <button class="btn-demo admin" (click)="cargarAdmin()">Admin</button>
+        <button class="btn-demo cliente" (click)="cargarCliente()">Cliente</button>
+      </div>
+    </div>
+
+  </div>
+</div>
