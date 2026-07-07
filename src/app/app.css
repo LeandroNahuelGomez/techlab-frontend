@@ -28,15 +28,30 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* NUEVO: Agrupamos el título y el badge en una columna para que uno quede arriba del otro */
+.logo {
+  display: flex;
+  flex-direction: column;
+}
+
 .navbar h2 {
   margin: 0;
   letter-spacing: 1px;
+}
+
+/* NUEVO: Estilo para el nombre y el rol del usuario */
+.user-badge {
+  font-size: 0.8rem;
+  color: #bdc3c7;
+  margin-top: 4px;
+  font-weight: 500;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
   gap: 25px;
+  align-items: center; /* NUEVO: Asegura que los textos y el botón de logout queden en la misma línea horizontal */
 }
 
 .nav-links li a {
@@ -49,6 +64,34 @@ body {
 .nav-links li a:hover,
 .nav-links li a.activo {
   color: #3498db;
+}
+
+/* NUEVO: Forzamos el color rojo para el enlace de Admin para que no tome el azul por defecto */
+.nav-links li a.link-admin {
+  color: #e74c3c !important; 
+}
+
+.nav-links li a.link-admin:hover,
+.nav-links li a.link-admin.activo {
+  color: #c0392b !important;
+}
+
+/* NUEVO: Botón de Cerrar Sesión estilizado (tipo outline) */
+.btn-logout {
+  background-color: transparent;
+  border: 2px solid #e74c3c;
+  color: #e74c3c;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.btn-logout:hover {
+  background-color: #e74c3c;
+  color: white;
 }
 
 .contenedor-principal {
