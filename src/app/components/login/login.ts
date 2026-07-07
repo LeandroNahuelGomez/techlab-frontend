@@ -42,7 +42,11 @@ export class LoginComponent {
       next: (usuario) => {
         // Si el login es exitoso, lo mandamos al catálogo
         alert(`¡Bienvenido ${usuario.nombre}! Has ingresado como ${usuario.rol}`);
-        this.router.navigate(['/productos']);
+        if(usuario.rol === 'ADMIN'){
+          this.router.navigate(['/admin'])
+        } else {
+          this.router.navigate(['/productos']);
+        }
       },
       error: (err) => {
         this.errorMensaje = 'Correo o contraseña incorrectos.';
