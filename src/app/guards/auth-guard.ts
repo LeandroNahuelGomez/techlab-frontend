@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import Swal from 'sweetalert2';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
@@ -18,7 +19,12 @@ export const authGuard: CanActivateFn = (route, state) => {
   
   if (rolRequerido && usuario.rol !== rolRequerido) {
     // Si está logueado pero no es Admin, lo mandamos al catálogo común
-    alert('Acceso denegado: No tienes permisos de administrador.');
+    Swal.fire({
+    title: 'Acceso Denegado',
+    text: 'No tienes permisos de administrador para ver esta página.',
+    icon: 'warning',
+    confirmButtonColor: '#e74c3c'
+  });
     router.navigate(['/productos']);
     return false;
   }

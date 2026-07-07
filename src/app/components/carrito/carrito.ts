@@ -2,7 +2,8 @@ import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ItemCarrito } from '../../services/carrito.service';
 import { CarritoService } from '../../services/carrito.service';
-import { PedidoService, PedidoRequestDTO} from '../../services/pedido.service';
+import { PedidoService, PedidoRequestDTO } from '../../services/pedido.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-carrito',
@@ -53,12 +54,22 @@ export class CarritoComponent implements OnInit {
     // Enviamos el POST al backend
     this.pedidoService.crearPedido(pedidoNuevo).subscribe({
       next: (respuesta) => {
-        alert('¡Compra confirmada! El stock fue descontado en la base de datos.');
+        Swal.fire({
+          title: '¡Compra confirmada!',
+          text: 'Tu pedido se procesó correctamente y el stock fue descontado.',
+          icon: 'success',
+          confirmButtonColor: '#27ae60'
+        });
         this.carritoService.limpiarCarrito();
       },
       error: (err) => {
         console.error('Error en la compra:', err);
-        alert('Hubo un error. Probablemente falta stock o el servidor está apagado.');
+        Swal.fire({
+          title: 'Ups...',
+          text: 'Probablemente falta stock o hubo un error de conexión.',
+          icon: 'error',
+          confirmButtonColor: '#e74c3c'
+        });
       }
     });
   }

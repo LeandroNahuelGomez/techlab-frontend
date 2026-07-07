@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProductoService } from '../../services/producto.service';
 import { CarritoService } from '../../services/carrito.service';
 import { Producto } from '../../models/producto.interface';
+import Swal from "sweetalert2"
 
 @Component({
   selector: 'app-lista-productos',
@@ -25,7 +26,7 @@ export class ListaProductosComponent implements OnInit {
   private productoService = inject(ProductoService);
   private carritoService = inject(CarritoService);
 
-  constructor(){}
+  constructor() { }
 
   ngOnInit(): void {
     this.productoService.listarProductos().subscribe({
@@ -43,8 +44,17 @@ export class ListaProductosComponent implements OnInit {
 
   agregarAlCarrito(producto: any): void {
     this.carritoService.agregarProducto(producto.id, producto.nombre, producto.precio, 1);
-    alert(`${producto.nombre} agregado al carrito!`);
-    // Más tarde aquí llamaremos al CarritoService
+    // Toast flotante estilo profesional
+    Swal.fire({
+      title: '¡Agregado!',
+      text: `${producto.nombre} se sumó al carrito`,
+      icon: 'success',
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true
+    });
   }
 
 }

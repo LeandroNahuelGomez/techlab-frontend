@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Fundamental para el ngModel
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './login.css'
 })
 export class LoginComponent {
-  
+
   credenciales = {
     email: '',
     password: ''
@@ -37,7 +38,7 @@ export class LoginComponent {
   // --- LÓGICA DE LOGIN ---
   iniciarSesion() {
     this.errorMensaje = '';
-    
+
     this.authService.login(this.credenciales).subscribe({
       next: (usuario) => {
         // Si el login es exitoso, lo mandamos al catálogo
