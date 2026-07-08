@@ -1,59 +1,354 @@
-# TechlabFrontend
+# 💻 TechLab E-Commerce - Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.0.
+Aplicación **Single Page Application (SPA)** desarrollada con **Angular 17** para la plataforma **TechLab E-Commerce**.
 
-## Development server
+El proyecto consume una API REST desarrollada con **Spring Boot**, permitiendo la gestión completa del catálogo de productos, carrito de compras, autenticación por roles y panel de administración.
 
-To start a local development server, run:
+## 🔗 Repositorio del Backend
 
-```bash
-ng serve
+https://github.com/LeandroNahuelGomez/techlab-backend
+
+---
+
+# 📸 Vista General
+
+El frontend proporciona una experiencia moderna, reactiva y responsive para dos tipos de usuarios:
+
+- 👤 Cliente
+- 👨‍💼 Administrador
+
+Entre las principales funcionalidades se encuentran:
+
+- Inicio de sesión
+- Catálogo de productos
+- Carrito de compras
+- Gestión de pedidos
+- Dashboard de administración
+- Gestión de productos y categorías
+- Carga de imágenes mediante Cloudinary
+
+---
+
+# 🛠️ Tecnologías
+
+- Angular 17
+- TypeScript
+- Angular Signals
+- RxJS
+- Angular Router
+- Standalone Components
+- HTML5
+- CSS3
+- SweetAlert2
+- Cloudinary
+- Angular HttpClient
+
+---
+
+# 🏗️ Arquitectura
+
+El proyecto sigue una arquitectura basada en responsabilidades:
+
+```text
+src
+│
+├── app
+│   ├── components
+│   ├── pages
+│   ├── services
+│   ├── guards
+│   ├── interceptors
+│   ├── models
+│   ├── shared
+│   └── app.routes.ts
+│
+├── assets
+└── environments
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Se aplican buenas prácticas como:
 
-## Code scaffolding
+- Separación entre componentes y servicios.
+- Consumo desacoplado de la API.
+- Guards para autorización.
+- Uso de Signals para el manejo del estado.
+- Interfaces fuertemente tipadas.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
+
+# ✨ Funcionalidades
+
+## 🔐 Autenticación
+
+- Login
+- Logout
+- Persistencia de sesión
+- Protección de rutas
+- Guards por rol
+
+---
+
+## 🛍️ Catálogo
+
+- Listado de productos
+- Búsqueda
+- Filtrado por categorías
+- Visualización de detalles
+
+---
+
+## 🛒 Carrito
+
+- Agregar productos
+- Modificar cantidades
+- Eliminar productos
+- Cálculo automático del total
+- Confirmación de compra
+
+---
+
+## 📦 Pedidos
+
+- Historial de compras
+- Consulta del estado
+- Cancelación de pedidos
+
+---
+
+## 👨‍💼 Panel de Administración
+
+- Dashboard
+- CRUD de productos
+- CRUD de categorías
+- Habilitar/Deshabilitar productos
+- Carga de imágenes a Cloudinary
+
+---
+
+# 🎨 Características de la interfaz
+
+- Diseño Responsive
+- Glassmorphism
+- Animaciones suaves
+- Feedback visual mediante SweetAlert2
+- Navegación sin recarga de página
+- Formularios con validaciones
+
+---
+
+# 🚀 Ejecución del proyecto
+
+## Requisitos
+
+Instalar previamente:
+
+- Node.js 20+
+- Angular CLI
 
 ```bash
-ng generate component component-name
+npm install -g @angular/cli
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
+
+# ⚙️ Configuración
+
+## 1. Clonar el repositorio
 
 ```bash
-ng generate --help
+git clone https://github.com/TU_USUARIO/techlab-frontend.git
 ```
 
-## Building
-
-To build the project run:
+Entrar al proyecto
 
 ```bash
-ng build
+cd techlab-frontend
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## 2. Instalar dependencias
 
 ```bash
-ng test
+npm install
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 3. Configurar la API
+
+Modificar la URL del backend en el archivo correspondiente.
+
+Ejemplo:
+
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8080'
+};
+```
+
+---
+
+## 4. Configurar Cloudinary
+
+Completar las credenciales necesarias en el servicio correspondiente.
+
+Ejemplo:
+
+```typescript
+cloudName = "TU_CLOUD_NAME";
+uploadPreset = "TU_UPLOAD_PRESET";
+```
+
+---
+
+## 5. Ejecutar Angular
 
 ```bash
-ng e2e
+ng serve -o
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+La aplicación quedará disponible en
 
-## Additional Resources
+```
+http://localhost:4200
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+# 🖥️ Cómo ejecutar el ecosistema completo
+
+Para que el sistema funcione correctamente, es importante respetar el siguiente orden.
+
+## Paso 1 — Base de Datos
+
+Iniciar MySQL.
+
+Crear la base de datos:
+
+```sql
+CREATE DATABASE techlab_db;
+```
+
+---
+
+## Paso 2 — Backend
+
+Clonar el repositorio del Backend.
+
+Configurar:
+
+- MySQL
+- Cloudinary
+
+Ejecutar:
+
+```bash
+mvn clean install
+
+mvn spring-boot:run
+```
+
+Esperar a que el servidor inicie correctamente en
+
+```
+http://localhost:8080
+```
+
+---
+
+## Paso 3 — Frontend
+
+Desde este proyecto ejecutar
+
+```bash
+npm install
+
+ng serve -o
+```
+
+Abrir
+
+```
+http://localhost:4200
+```
+
+---
+
+# 🧪 Usuarios de prueba
+
+El backend crea automáticamente los siguientes usuarios al iniciarse por primera vez.
+
+| Rol | Email | Contraseña |
+|------|--------|------------|
+| ADMIN | admin@techlab.com | admin123 |
+| CLIENTE | cliente@techlab.com | cliente123 |
+
+---
+
+# 🧪 Flujo recomendado para probar la aplicación
+
+## Como Administrador
+
+- Iniciar sesión.
+- Acceder al Dashboard.
+- Crear una categoría.
+- Crear un producto.
+- Subir una imagen.
+- Editar el producto.
+- Habilitar o deshabilitar el producto.
+
+## Como Cliente
+
+- Iniciar sesión.
+- Explorar el catálogo.
+- Agregar productos al carrito.
+- Confirmar la compra.
+- Consultar el historial.
+- Cancelar un pedido para verificar la restauración automática del stock.
+
+---
+
+# 📁 Dependencias principales
+
+- @angular/core
+- @angular/router
+- @angular/common
+- rxjs
+- sweetalert2
+
+---
+
+# 🔮 Mejoras futuras
+
+- JWT Authentication.
+- Refresh Token.
+- Lazy Loading completo.
+- Paginación de productos.
+- Buscador avanzado.
+- Favoritos.
+- Perfil de usuario.
+- Dashboard con métricas.
+- Tests unitarios con Jasmine y Karma.
+- Integración con Docker.
+
+---
+
+# 👨‍💻 Autor
+
+## Leandro Nahuel Gomez
+
+Desarrollador Backend Java | Angular
+
+### Tecnologías
+
+- Java
+- Spring Boot
+- Angular
+- TypeScript
+- MySQL
+- Hibernate
+- REST APIs
+
+---
